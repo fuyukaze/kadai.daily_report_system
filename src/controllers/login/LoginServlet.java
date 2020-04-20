@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
-        rd.forward(request,  response);
+        rd.forward(request, response);
     }
 
     /**
@@ -71,9 +71,9 @@ public class LoginServlet extends HttpServlet {
             // 社員番号とパスワードが正しいかチェックする
             try {
                 e = em.createNamedQuery("checkLoginCodeAndPassword", Employee.class)
-                        .setParameter("code",  code)
-                        .setParameter("pass",  password)
-                        .getSingleResult();
+                      .setParameter("code", code)
+                      .setParameter("pass", password)
+                      .getSingleResult();
             } catch(NoResultException ex) {}
 
             em.close();
@@ -83,20 +83,21 @@ public class LoginServlet extends HttpServlet {
             }
         }
 
-            if(!check_result) {
-                // 認証できなかったらログイン画面に戻る
-                request.setAttribute("_token",  request.getSession().getId());
-                request.setAttribute("hasError",  true);
-                request.setAttribute("code",  code);
+        if(!check_result) {
+            // 認証できなかったらログイン画面に戻る
+            request.setAttribute("_token", request.getSession().getId());
+            request.setAttribute("hasError", true);
+            request.setAttribute("code", code);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INT/views/login/login.jsp");
-                rd.forward(request,  response);
-            } else {
-                // 認証できたらログイン状態にしてトップページへリダイレクト
-                request.getSession().setAttribute("login_employee", e);
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
+            rd.forward(request, response);
+        } else {
+            // 認証できたらログイン状態にしてトップページへリダイレクト
+            request.getSession().setAttribute("login_employee", e);
 
-                request.getSession().setAttribute("flush",  "ログインしました");
-                response.sendRedirect(request.getContextPath() + "/");
-            }
+            request.getSession().setAttribute("flush", "ログインしました。");
+            response.sendRedirect(request.getContextPath() + "/");
         }
     }
+
+}
