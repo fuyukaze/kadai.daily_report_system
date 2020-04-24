@@ -64,12 +64,12 @@ public class ReportsCreateServlet extends HttpServlet {
             if(errors.size() > 0) {
                 em.close();
 
-                request.setAttribute("_token", request.getSession().getId());
-                request.setAttribute("report", r);
-                request.setAttribute("errors", errors);
+                request.setAttribute("_token" , request.getSession().getId());
+                request.setAttribute("report" , r);
+                request.setAttribute("errors" , errors);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/new.jsp");
-                rd.forward(request, response);
+                rd.forward(request , response);
             } else {
                 em.getTransaction().begin();
                 em.persist(r);

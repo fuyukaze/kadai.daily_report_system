@@ -42,13 +42,13 @@ public class ReportsEditServlet extends HttpServlet {
 
         Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
         if(r != null && login_employee.getId() == r.getEmployee().getId()) {
-            request.setAttribute("report", r);
-            request.setAttribute("_token", request.getSession().getId());
-            request.getSession().setAttribute("report_id", r.getId());
+            request.setAttribute("report" , r);
+            request.setAttribute("_token" , request.getSession().getId());
+            request.getSession().setAttribute("report_id" , r.getId());
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/edit.jsp");
-        rd.forward(request, response);
+        rd.forward(request , response);
     }
 
 }
